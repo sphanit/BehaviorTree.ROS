@@ -122,7 +122,7 @@ class FibonacciServer : public RosActionNode<behaviortree_ros::FibonacciAction> 
 
 // Simple tree, used to execute once each action.
 static const char* xml_text = R"(
- <root >
+ <root BTCPP_format="4" >
      <BehaviorTree>
         <Sequence>
             <AddTwoInts service_name = "add_two_ints"
@@ -131,10 +131,8 @@ static const char* xml_text = R"(
             <PrintValue message="{add_two_result}"/>
 
             <RetryUntilSuccessful num_attempts="4">
-                <Timeout msec="300">
                     <Fibonacci server_name="fibonacci" order="5"
                                result="{fibonacci_result}" />
-                </Timeout>
             </RetryUntilSuccessful>
             <PrintValue message="{fibonacci_result}"/>
         </Sequence>
